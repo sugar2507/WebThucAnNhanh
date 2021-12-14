@@ -1,0 +1,115 @@
+﻿@model IEnumerable<WebBanThucAnNhanh.Models.HOADON>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Danh sách hóa đơn</strong>
+                </div>
+                <div class="col-md-6 text-right">
+                    <div class="input-group">
+                        <input type="number" name="id" class="form-control bg-light border-0 small"
+                               placeholder="Tìm hóa đơn số" aria-label="Search"
+                               aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <input class="btn btn-primary fas fa-search fa-sm" type="submit" value="Thi Triển" />
+                        </div>
+                        @*<input type="number" name="sdt" class="form-control bg-light border-0 small"
+                               placeholder="Tìm theo sdtKH" aria-label="Search"
+                               aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <input class="btn btn-primary fas fa-search fa-sm" type="submit" value="Thi Triển" />
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-block p-3">
+        <table class="table table-bordered table-hover table-striped">
+
+            <tr>
+                <th>
+                    NGÀY GIỜ
+                </th>
+                <th>
+                    MÃ HĐ
+                </th>
+                <th>
+                    TÊN
+                </th>
+                <th>
+                    SĐT
+                </th>
+                <th>
+                    ĐỊA CHỈ
+                </th>
+                <th>
+                    TỔNG TIỀN
+                </th>
+                <th>
+                    THANH TOÁN
+                </th>
+
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(item.NGAYGIO.ToString("dd/MM HH:mm"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MAHOADON)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DATHANG.DIACHIGH.HOTEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DATHANG.DIACHIGH.SDT)
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(modelItem => item.DATHANG.DIACHIGH.SONHA)</span>
+                        <span>P.@Html.DisplayFor(modelItem => item.DATHANG.DIACHIGH.PHUONG)</span>
+                        <span>Q.@Html.DisplayFor(modelItem => item.DATHANG.DIACHIGH.QUAN)</span>
+                    </td>
+                    <td>
+                        @Math.Round(item.TONGTIEN * 20000, 2).ToString("N0")
+                    </td>
+                    <td>
+                        @if (item.PHUONGTHUC.Equals(0))
+                        {
+                            <span>Tiền Mặt</span>
+                        }
+                        @if (item.PHUONGTHUC.Equals(1))
+                        {
+                            <span>PayPal</span>
+                        }
+                    </td>
+                    <td>
+                        @if (Session["IDQL"] != null)
+                        {
+                            <a href="@Url.Action("Details", "HoaDon", new { id = @item.MAHOADON })" class="btn btn-sm btn-warning">Chi tiết</a>
+                        }
+                        else
+                        {
+                            <div></div>
+                        }
+
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+}

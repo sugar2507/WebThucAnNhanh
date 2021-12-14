@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WebBanThucAnNhanh.Models.DATHANG>
+
+@{
+    ViewBag.Title = "DonDat";
+    Layout = "~/Views/Shared/_LayoutDonDat.cshtml";
+}
+<head>
+    <link href="~/Content/Font.css" rel="stylesheet" />
+    <style>
+        .table th {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="table-responsive font-all">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Ngày giờ
+                    </th>
+                    <th scope="col">
+                        Mã đơn đặt
+                    </th>
+                    <th scope="col">
+                        Tên khách hàng
+                    </th>
+                    <th scope="col">
+                        SĐT
+                    </th>
+                    <th scope="col">
+                        Địa chỉ
+                    </th>
+                    <th scope="col">
+                        Tổng tiền
+                    </th>
+                    <th scope="col">
+                        Tình trạng đơn
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NGAY)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MADATHANG)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIACHIGH.HOTEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIACHIGH.SDT)
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(modelItem => item.DIACHIGH.SONHA)</span>
+                        <span>P.@Html.DisplayFor(modelItem => item.DIACHIGH.PHUONG)</span>
+                        <span>Q.@Html.DisplayFor(modelItem => item.DIACHIGH.QUAN)</span>
+                    </td>
+                    <td>
+                        @Math.Round(item.TONGTIEN * 20000, 2).ToString("N0")
+                    </td>
+                    <td>
+                        @if (item.TRANGTHAI.Equals(0))
+                        {
+                            <span>Chờ Xác Nhận</span>
+                        }
+                        @if (item.TRANGTHAI.Equals(1))
+                        {
+                            <span>Đã Xác Nhận</span>
+                        }
+                        @if (item.TRANGTHAI.Equals(2))
+                        {
+                            <span>Hoàn Tất</span>
+                        }
+                        @if (item.TRANGTHAI.Equals(3))
+                        {
+                            <span>Đã Hủy</span>
+                        }
+                    </td>
+                </tr>
+
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+}

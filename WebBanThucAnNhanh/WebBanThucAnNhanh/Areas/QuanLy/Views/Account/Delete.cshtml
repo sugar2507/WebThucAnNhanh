@@ -1,0 +1,62 @@
+﻿@model WebBanThucAnNhanh.Models.NHANVIEN
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6 text-danger text-uppercase">
+                <strong> Xóa nhân viên </strong>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div style="padding:2% 1% 0% 2%">
+        <dl class="dl-horizontal">
+            <dt>
+                Tên nhân viên
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TENNV)
+            </dd>
+            <dt>
+                Số điện thoại
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                Email
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EMAIL)
+            </dd>
+
+            <dt>
+                Mật khẩu
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PASSWORD)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa" class="btn btn-default" /> |
+                @Html.ActionLink("Quay về", "Index")
+            </div>
+        }
+    </div>
+</div>

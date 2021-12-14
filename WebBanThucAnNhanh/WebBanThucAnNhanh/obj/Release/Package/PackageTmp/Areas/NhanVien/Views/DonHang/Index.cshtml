@@ -1,0 +1,172 @@
+﻿@model IEnumerable<WebBanThucAnNhanh.Models.DATHANG>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/NhanVien/Views/Shared/_Layout.cshtml";
+    <link href="~/Assets/admin/css/nv-dathang.css" rel="stylesheet" />
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Danh sách đơn hàng</strong>
+                </div>
+                @if (Session["ID"] != null)
+                {
+            <div class="col-md-6 text-right">
+                <a href="@Url.Action("Index", "DonHang")" class="btn btn-sm btn-warning">Đơn Chờ</a>
+                <a href="@Url.Action("DonHoanTat", "DonHang")" class="btn btn-sm btn-success">Đơn Hoàn Tất</a>
+                <a href="@Url.Action("DonHuy", "DonHang")" class="btn btn-sm btn-danger">Đơn Hủy</a>
+
+            </div>
+                }
+                else
+                {
+                    <div></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="card-block p-3">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>
+                    NGÀY GIỜ
+                </th>
+                <th>
+                    MÃ ĐH
+                </th>
+                <th>
+                    TÊN
+                </th>
+                <th>
+                    SĐT
+                </th>
+                <th>
+                    ĐỊA CHỈ
+                </th>
+                <th>
+                    TỔNG TIỀN
+                </th>
+                <th>
+                    THANH TOÁN
+                </th>
+                <th>
+                    TRẠNG THÁI
+                </th>
+                @if (Session["ID"] != null)
+                {
+                    <th>
+                        CẬP NHẬT TT
+                    </th>
+                }
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                if (item.TRANGTHAI == 1 || item.TRANGTHAI == 0)
+                {
+                    <tr>
+                        <td>
+                            @(item.NGAY.ToString("dd/MM HH:mm"))
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MADATHANG)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DIACHIGH.HOTEN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DIACHIGH.SDT)
+                        </td>
+                        <td>
+                            <span>@Html.DisplayFor(modelItem => item.DIACHIGH.SONHA)</span>
+                            <span>P.@Html.DisplayFor(modelItem => item.DIACHIGH.PHUONG)</span>
+                            <span>Q.@Html.DisplayFor(modelItem => item.DIACHIGH.QUAN)</span>
+                        </td>
+                        
+                        <td>
+                            @Math.Round(item.TONGTIEN * 20000, 2).ToString("N0")
+                        </td>
+                        <td>
+                            @if (item.PHUONGTHUC.Equals(0))
+                            {
+                                <span>Tiền Mặt</span>
+                            }
+                            @if (item.PHUONGTHUC.Equals(1))
+                            {
+                                <span>PayPal</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.TRANGTHAI.Equals(0))
+                            {
+                                <span>Chờ Xác Nhận</span>
+                            }
+                            @if (item.TRANGTHAI.Equals(1))
+                            {
+                                <span>Đã Xác Nhận</span>
+                            }
+                        </td>
+                        <td>
+                            @if (Session["ID"] != null)
+                            {
+                                <a href="@Url.Action("XacNhan", "DonHang", new { id = @item.MADATHANG })" style="text-decoration: none;">
+                                    @if (item.TRANGTHAI.Equals(0))
+                                    {
+                                        <span class="btn btn-info btn-sm">Xác Nhận</span>
+                                    }
+                                </a>
+                                    <a href="@Url.Action("HoanTat", "DonHang", new { id = @item.MADATHANG })" style="text-decoration: none;">
+                                        @if (item.TRANGTHAI.Equals(1))
+                                        {
+                                            <span class="btn btn-sm btn-success">Hoàn Tất</span>
+                                        }
+                                        @if (item.TRANGTHAI.Equals(2))
+                                        {
+                                            <span class="btn-disabled">Đã Hoàn Tất</span>
+                                        }
+                                    </a>
+                                <div style="padding-top:5px">
+                                    <a href="@Url.Action("Huy", "DonHang", new { id = @item.MADATHANG })" style="text-decoration: none;">
+                                        @if (item.TRANGTHAI.Equals(1))
+                                        {
+                                            <span class="btn btn-sm btn-danger">Hủy</span>
+                                        }
+                                        @if (item.TRANGTHAI.Equals(3))
+                                        {
+                                            <span class="btn-disabled">Đã Hủy</span>
+                                        }
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Details", "DonHang", new { id = @item.MADATHANG })" style="text-decoration: none;">
+                                <span class="btn btn-info btn-sm">Chi Tiết</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                if (item.TRANGTHAI == 2 || item.TRANGTHAI == 3)
+                {
+                    <div>
+
+                    </div>
+                }
+
+            }
+
+        </table>
+    </div>
+}

@@ -1,0 +1,54 @@
+﻿@model WebBanThucAnNhanh.Models.LOAI
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Xóa loại </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="padding: 2% 1% 0% 2%">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TENLOAI)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TENLOAI)
+                </dd>
+
+            </dl>
+
+
+
+            <div class="form-group">
+                <tr>
+                    <td>
+                        <div class="col-md-offset-2 col-md-10" style="float:left;width:200px;">
+                            <input type="submit" value="Xoá loại" class="btn btn-default" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-md-offset-2 col-md-10" style="float:left;width:200px;margin-top:10px;">
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+
+                    </td>
+                </tr>
+            </div>
+
+        </div>
+    </div>
+
+}

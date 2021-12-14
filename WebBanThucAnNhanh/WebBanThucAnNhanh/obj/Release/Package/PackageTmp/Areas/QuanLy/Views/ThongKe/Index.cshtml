@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebBanThucAnNhanh.Models.HOADON>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Danh sách hóa đơn</strong>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-block p-3">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MAHOADON)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MANHANVIEN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MADATHANG)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TONGTIEN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NGAYGIO)
+                </th>
+              
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MAHOADON)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MANHANVIEN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MADATHANG)
+            </td>
+            <td>
+                @Math.Round(item.TONGTIEN * 20000, 2).ToString("N0")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGAYGIO)
+            </td>
+        
+        </tr>
+            }
+
+        </table>
+        <div>
+            <tr>
+                <td>Tổng tiền</td>
+                <td>
+                @Model.Sum(m =>Convert.ToDouble(String.Format("{0:0,00}", m.TONGTIEN * 20000)))
+                    
+                </td>
+            </tr>
+            
+        </div>
+        </div>
+}

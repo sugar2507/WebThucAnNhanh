@@ -1,0 +1,120 @@
+﻿@model IEnumerable<WebBanThucAnNhanh.Models.DATHANG>
+
+@{
+    ViewBag.Title = "DONHUY";
+    Layout = "~/Areas/NhanVien/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Danh sách đơn hủy</strong>
+                </div>
+                @if (Session["ID"] != null)
+                {
+            <div class="col-md-6 text-right">
+                <a href="@Url.Action("Index", "DonHang")" class="btn btn-sm btn-warning">Đơn Chờ</a>
+                <a href="@Url.Action("DonHoanTat", "DonHang")" class="btn btn-sm btn-success">Đơn Hoàn Tất</a>
+                <a href="@Url.Action("DonHuy", "DonHang")" class="btn btn-sm btn-danger">Đơn Hủy</a>
+
+            </div>
+                }
+                else
+                {
+                    <div></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="card-block p-3">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>
+                    NGÀY GIỜ
+                </th>
+                <th>
+                    MÃ
+                </th>
+                <th>
+                    TÊN
+                </th>
+                <th>
+                    ĐIỆN THOẠI
+                </th>
+                <th>
+                    ĐỊA CHỈ
+                </th>
+                <th>
+                    TỔNG TIỀN
+                </th>
+                <th>
+                    THANH TOÁN
+                </th>
+                <th>
+                    TRẠNG THÁI
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(item.NGAY.ToString("dd/MM HH:mm"))
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MADATHANG)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIACHIGH.HOTEN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DIACHIGH.SDT)
+                    </td>
+                    <td>
+                        <span>@Html.DisplayFor(modelItem => item.DIACHIGH.SONHA)</span>
+                        <span>P.@Html.DisplayFor(modelItem => item.DIACHIGH.PHUONG)</span>
+                        <span>Q.@Html.DisplayFor(modelItem => item.DIACHIGH.QUAN)</span>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TONGTIEN)
+                    </td>
+                    <td>
+                            @if (item.PHUONGTHUC.Equals(0))
+                            {
+                                <span>Tiền Mặt</span>
+                            }
+                            @if (item.PHUONGTHUC.Equals(1))
+                            {
+                                <span>PayPal</span>
+                            }
+                        </td>
+                    <td>
+                        @if (item.TRANGTHAI.Equals(0))
+                        {
+                            <span>Chờ Xác Nhận</span>
+                        }
+                        @if (item.TRANGTHAI.Equals(1))
+                        {
+                            <span>Đã Xác Nhận</span>
+                        }
+                        @if (item.TRANGTHAI.Equals(2))
+                        {
+                            <span>Hoàn Tất</span>
+                        }
+                        @if (item.TRANGTHAI.Equals(3))
+                        {
+                            <span>Hủy</span>
+                        }
+                    </td>
+                    
+                </tr>
+            }
+
+        </table>
+    </div>
+}
+

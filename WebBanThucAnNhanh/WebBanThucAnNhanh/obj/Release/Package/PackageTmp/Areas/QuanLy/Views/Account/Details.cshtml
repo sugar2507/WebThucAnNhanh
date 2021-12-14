@@ -1,0 +1,58 @@
+﻿@model WebBanThucAnNhanh.Models.NHANVIEN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thông tin nhân viên</h2>
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6 text-danger text-uppercase">
+                <strong>Chỉnh sửa thông tin nhân viên </strong>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div style="padding: 2% 1% 0% 2%">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TENNV)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TENNV)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SDT)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EMAIL)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PASSWORD)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PASSWORD)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-md-offset-2 col-md-10" style="float:left;width:200px;margin-top:10px;">
+        @Html.ActionLink("Back to List", "Index")
+    </div>

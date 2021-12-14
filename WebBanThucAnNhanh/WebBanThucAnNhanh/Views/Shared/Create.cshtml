@@ -1,0 +1,69 @@
+﻿@model WebBanThucAnNhanh.Models.FEEDBACK
+
+@{
+    ViewBag.Title = "AddFeedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";}
+<head>
+    <link href="~/Content/Font.css" rel="stylesheet" />
+</head>
+<style>
+    .detailfeedback {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-top: 6px;
+        margin-bottom: 16px;
+
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Phản hồi đến chúng tôi</h2>
+        <hr />
+
+        <div class="form-group">
+            <p class="control-label col-md-2">Số điện thoại</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Tên  </p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TENKH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TENKH, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2">Nội dung</p>
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.NOIDUNG, 4, 98, new { htmlAttributes = new { @class = "form-control detailfeedback", @placeholder = "200 ký tự", } })
+                @Html.ValidationMessageFor(model => model.NOIDUNG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="btn-detail " style=" padding:0 5%;">
+                <button type="submit" value="" class="btn pest_btn">Gửi</button>
+
+
+
+                <a href="@Url.Action("Index","Home")" class="pest_btn btn " style="background: #94c9d9">
+                    Quay lại
+                </a>
+            </div>
+        </div>
+    </div>
+}
+

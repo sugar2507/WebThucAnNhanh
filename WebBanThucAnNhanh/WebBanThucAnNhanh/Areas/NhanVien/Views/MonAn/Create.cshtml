@@ -1,0 +1,134 @@
+﻿@model WebBanThucAnNhanh.Models.MONAN
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/NhanVien/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm("Create", "MonAn", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Thêm món </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="padding: 2% 1% 0% 2%">
+            <div class="form-horizontal" style="padding-left:20px">
+             
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    MÃ MÓN ĂN
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MAMONAN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MAMONAN, "", new { @class = "field-validation-error" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    TÊN MÓN ĂN
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TENMONAN, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    <div>@Html.ValidationMessageFor(model => model.TENMONAN, "", new { @class = "text-danger" })</div>
+                </div>
+
+                <div class="form-group">
+                    HÌNH ẢNH
+                    <div class="col-md-10">
+                        <img src="@Url.Content(Model.HINHANH)" style="height:200px; width:200px; margin:10px;" id="previewImg" />
+                        <input type="file" name="UploadImage" onchange="ChangeImage(this, document.getElementById('previewImg'))" />
+                        <div>@Html.ValidationMessageFor(model => model.HINHANH)</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    ĐƠN VỊ TÍNH
+                    <div class="col-md-10">
+                        @{Html.RenderAction("SelectUnit", "MonAn");}
+                        @Html.ValidationMessageFor(model => model.MADONVITINH, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span>
+                        GIÁ
+                    </span>
+                    <span style="padding-bottom:100px;font-weight:500;color:#ffc200;">
+                        * 1 USD = 20.000 VNĐ (ĐIỀN USD)
+                    </span>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GIABAN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GIABAN, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    MÔ TẢ
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MOTA, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MOTA, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    LOẠI
+                    <div class="col-md-10">
+                        @{Html.RenderAction("SelectFood", "MonAn");}
+                        @Html.ValidationMessageFor(model => model.MALOAI, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    SỐ LƯỢNG
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SOLUONG, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SOLUONG, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    TRẠNG THÁI
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.STATUS, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.STATUS, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                
+
+                <div class="form-group">
+                    <tr>
+                        <td>
+                            <div class="col-md-offset-2 col-md-10" style="float:left;width:200px;">
+                                <input type="submit" value="Tạo món" class="btn btn-default" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-offset-2 col-md-10" style="float:left;width:200px;margin-top:10px;">
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+
+                        </td>
+                    </tr>
+                   
+                </div>
+            </div>
+            
+            
+            </div>
+        </div>
+
+                            }
+            <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

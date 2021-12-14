@@ -1,0 +1,81 @@
+﻿@model WebBanThucAnNhanh.Models.HOADON
+
+@{
+    ViewBag.Title = "CTHoaDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var CTHOADON = Session["CTHOADON"] as WebBanThucAnNhanh.Models.CTHOADON;
+}
+<head>
+    <link href="~/Content/Font.css" rel="stylesheet" />
+    <style>
+        .table th {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="table-responsive font-all">
+        <h4>Mã hóa đơn : @Html.DisplayFor(model => model.MAHOADON)</h4>
+        <hr />
+            <dt>
+                NGÀY GIỜ : @Html.DisplayFor(model => model.NGAYGIO)
+            </dt>
+            <dt>
+                MÃ ĐẶT HÀNG : @Html.DisplayFor(model => model.MADATHANG)
+            </dt>
+            <dt>
+                TÊN KHÁCH HÀNG : @Html.DisplayFor(model => model.DATHANG.DIACHIGH.HOTEN)
+            </dt>
+            <dt>
+                SỐ ĐIỆN THOẠI : @Html.DisplayFor(model => model.DATHANG.DIACHIGH.SDT)
+            </dt>
+            <dt>
+                ĐỊA CHỈ : @Html.DisplayFor(model => model.DATHANG.DIACHIGH.SONHA) P.@Html.DisplayFor(model => model.DATHANG.DIACHIGH.PHUONG) Q.@Html.DisplayFor(model => model.DATHANG.DIACHIGH.QUAN)
+            </dt>
+            <dt>
+                TỔNG TIỀN : @Math.Round(Model.TONGTIEN * 20000, 2).ToString("N0")
+            </dt>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Món
+                    </th>
+                    <th scope="col">
+                        Số lượng
+                    </th>
+                    <th scope="col">
+                        Giá bán
+                    </th>
+                    <th scope="col">
+                        Ghi chú
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CTHOADONs)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CT_MONAN_DATHANG.MONAN.TENMONAN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SOLUONG)
+                    </td>
+                    <td>
+                        @Math.Round(item.CT_MONAN_DATHANG.MONAN.GIABAN * 20000, 2).ToString("N0")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GHICHU)
+                    </td>
+                </tr>
+
+                }
+            </tbody>
+
+        </table>
+    </div>
+}

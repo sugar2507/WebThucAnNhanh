@@ -1,0 +1,84 @@
+﻿@model WebBanThucAnNhanh.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Thông tin khách hàng </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="padding: 2% 1% 0% 2%">
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên khách hàng
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TENKHACHHANG)
+                </dd>
+
+                <dt>
+                    Ngày Sinh
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NGAYSINH)
+                </dd>
+
+                <dt>
+                    Địa Chỉ
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DIACHI)
+                </dd>
+
+                <dt>
+                    Số điện thoại
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SDT)
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EMAIL)
+                </dd>
+
+                <dt>
+                    Mật khẩu
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PASSWORD)
+                </dd>
+
+                <dt>
+                    Loại
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LOAI)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-md-offset-2 col-md-10" style="float:left;width:200px;margin-top:10px;">
+            @Html.ActionLink("Quay về", "Index")
+        </div>
+        </div>
+}

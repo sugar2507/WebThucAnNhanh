@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WebBanThucAnNhanh.Models.DONVITINH>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/QuanLy/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 text-danger text-uppercase">
+                    <strong>Danh sách đơn vị tính món</strong>
+                </div>
+                @if (Session["IDQL"] != null)
+                {
+                    <div class="col-md-6 text-right">
+                        <a href="@Url.Action("Create", "DonViTinhMon")" class="btn btn-sm btn-success">Thêm loại sản phẩm</a>
+                    </div>
+                }
+                else
+                {
+                    <div></div>
+                }
+                </div>
+        </div>
+    </div>
+    <div class="card-block p-3">
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>
+                    Mã đơn vị
+                </th>
+                <th>
+                    Tên đơn vị
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MADONVITINH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TENDONVITINH)
+                    </td>
+                    <td>
+                        @if (Session["IDQL"] != null)
+                        {
+                            <a href="@Url.Action("Edit", "DonViTinhMon", new { id = item.MADONVITINH })" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="@Url.Action("Delete", "DonViTinhMon", new { id = item.MADONVITINH })" class="btn btn-sm btn-danger">Xóa</a>
+                        }
+                    else
+                    {
+                        <div>
+
+                        </div>
+                    }
+                        </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+}
